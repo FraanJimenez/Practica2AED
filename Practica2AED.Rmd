@@ -124,11 +124,61 @@ Al estar los valores (puntos y triángulos) tan juntos en el gráfico, se difere
 
 # EJERCICIO 3:
 
+Veamos primero las variables del dataset pedidas:
 
+```{r}
+# Cargamos los datos
+load("data/iris_tidy.Rdata")
+
+# Consulto la estructura del dataset
+str(iris.tidy)
+```
+
+Con este resultado, observamos que hay cuatro variables distintas y 600 observaciones. Dos de estas variables son categóricas (factor) de 3 y 2 niveles, una numérica y una de tipo chr.
+
+```{r}
+# Gráfico 1
+iris_grafico1 <- ggplot(data = iris.tidy, aes(x = Species, y = Value))
+
+# Añado los puntos para gráfico de dispersión
+iris_grafico1 + geom_point()
+
+# Creo el gráfico 2
+iris_grafico2 <- iris_grafico1 + aes(color = Part)
+iris_grafico2 + geom_point()
+
+# Separo los gráficos según Measure, en filas
+iris_grafico3 <- iris_grafico2 + geom_point() + facet_grid(Measure ~ .)
+iris_grafico3
+
+# Cambio la disposición a columnas
+iris_grafico4 <- iris_grafico2 + geom_point() + facet_grid(. ~ Measure)
+iris_grafico4
+
+# Cambio geom_point() por geom_jitter()
+iris_grafico5 <- iris_grafico2 + geom_jitter() + facet_grid(. ~ Measure)
+iris_grafico5
+
+# Guardo el gráfico final en PDF
+ggsave("./results/Ejercicio3.pdf", plot = iris_grafico5)
+```
+
+Comparando los gráficos iris_grafico3 con iris_grafico4, vemos que se aprecia mejor la comparativa entre el valor de las variables en iris_grafico4 (por columnas), ya que el eje y, que es el valor que toman las variables, no aparece partido como en el iris_grafico3, dificultando la comparación.
+
+Por otro lado, al usar geom_jitter() se observa la introducción de ruido a los valores, de modo que se puede apreciar mejor la cantidad de observaciones que toman cada valor, para hacernos una idea visual.
 
 
 # EJERCICIO 4:
 
+Veamos primero las variables del dataset:
+
+```{r}
+# Cargo los datos
+load("data/Ejercicio4_Data.Rdata")
+
+# Analizo los datos
+str(DatosEjer4)
+```
 
 
 
