@@ -3,12 +3,10 @@ title: "Practica2AED"
 author: "Francisco Jiménez Jiménez"
 date: "`r Sys.Date()`"
 output:
-  bookdown::pdf_document2:
+  pdf_document:
     toc: true
     toc_depth: 3
     number_sections: true
-    figure_caption: "Figura" # Referencias en castellano
-    table_caption: "Tabla"
   html_document:
     echo: true
     number_sections: true
@@ -18,10 +16,12 @@ output:
     echo: true
     number_sections: true
     toc: true
-  pdf_document:
+  bookdown::pdf_document2:
     toc: true
     toc_depth: 3
     number_sections: true
+    figure_caption: "Figura" # Referencias en castellano
+    table_caption: "Tabla"
   bookdown::html_document2:
     echo: true
     number_sections: true
@@ -61,7 +61,7 @@ pacman::p_load(char=packages)
 
 
 
-# EJERCICIO 1: 
+# EJERCICIO 1
 
 ```{r}
 # Cargo el fichero de los datos correspondiente
@@ -89,7 +89,7 @@ ggsave("./results/Ejercicio1.pdf", plot = grafico3)
 
 
 
-# EJERCICIO 2:
+# EJERCICIO 2
 
 ```{r}
 # Gráfico de dispersión con x=Temp9am e y=Pressure9am
@@ -122,7 +122,7 @@ ggsave("./results/Ejercicio2.pdf", plot = grafico4)
 Al estar los valores (puntos y triángulos) tan juntos en el gráfico, se diferencia mejor si representamos RainToday mediante el color, ayudando así a la diferenciación de estos.
 
 
-# EJERCICIO 3:
+# EJERCICIO 3
 
 Veamos primero las variables del dataset pedidas:
 
@@ -168,7 +168,7 @@ Comparando los gráficos iris_grafico3 con iris_grafico4, vemos que se aprecia m
 Por otro lado, al usar geom_jitter() se observa la introducción de ruido a los valores, de modo que se puede apreciar mejor la cantidad de observaciones que toman cada valor, para hacernos una idea visual.
 
 
-# EJERCICIO 4:
+# EJERCICIO 4
 
 Veamos primero las variables del dataset:
 
@@ -180,6 +180,32 @@ load("data/Ejercicio4_Data.Rdata")
 str(DatosEjer4)
 ```
 
+Tenemos un dataset de 200 observaciones con 3 variables. Una de ellas está en formato fecha (Fecha), otra es una variable categórica (afactor) de dos niveles (Fabricante, con niveles Microsoft y Apple), y la última (Ventas) es una variable numérica.
+
+```{r}
+# Creo el gráfico 1
+grafico1 <- ggplot(data = DatosEjer4, aes(x = Fecha, y = Ventas, color = Fabricante)) + geom_point()
+grafico1
+
+# Añado la línea a mi gráfico inicial
+grafico2 <- grafico1 + geom_line()
+grafico2
+
+# Cambiamos el tipo de línea según el fabricante
+grafico3 <- ggplot(data = DatosEjer4, aes(x = Fecha, y = Ventas, color = Fabricante, linetype = Fabricante)) + geom_point() + geom_line()
+grafico3
+
+# Añado título
+grafico4 <- grafico3 + ggtitle("Ventas mensuales de diferentes compañías tecnológicas")
+grafico4
+
+# Guardo el gráfico en formato PDF
+ggsave("./results/Ejercicio4.pdf", plot = grafico4)
+```
+
+Observamos que el gráfico 1 no es válido para evaluar la evolución de las ventas de cada fabricante de manera adecuada, ya que tenemos una serie de puntos pero no vemos su evoolución según el tiempo de manera clara. 
+
+Para poder analizarlo bien, es conveniente aplicar geom_line(), de modo que vemos el orden que siguen las ventas, opprdenadas por fecha, y así podemos hacer un estudio adecuado, como vemos en los siguientes gráficos.
 
 
 # EJERCICIO 5:
