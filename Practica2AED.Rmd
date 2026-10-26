@@ -91,7 +91,35 @@ ggsave("./results/Ejercicio1.pdf", plot = grafico3)
 
 # EJERCICIO 2:
 
+```{r}
+# Gráfico de dispersión con x=Temp9am e y=Pressure9am
+grafico1 <- ggplot(data = ds, aes(x = Temp9am, y = Pressure9am))
+grafico1 + geom_point()
 
+
+# Añado la variable RainToday mediante la forma del punto
+grafico2 <- ggplot(data = ds, aes(x = Temp9am, y = Pressure9am, shape = RainToday)) + geom_point()
+grafico2
+
+# Añado la variable RainToday mediante el color de los puntos
+grafico3 <- ggplot(data = ds, aes(x = Temp9am, y = Pressure9am, color = RainToday)) + geom_point()
+grafico3
+
+
+# Añado la información pedida
+grafico4 <- grafico3 + labs(title = "Relación entre temperatura y presión atmosférica", 
+          subtitle = "Mediciones realizadas a las 9 de la mañana", 
+          x = "Temperatura a las 9:00 (Temp9am)", 
+          y = "Presión atmosférica a las 9:00 (Pressure9am)", 
+          color = "¿Llovió hoy? (RainToday)")
+grafico4
+
+
+# Guardo el gráfico en formato PDF como en el ejercicio anterior
+ggsave("./results/Ejercicio2.pdf", plot = grafico4)
+```
+
+Al estar los valores (puntos y triángulos) tan juntos en el gráfico, se diferencia mejor si representamos RainToday mediante el color, ayudando así a la diferenciación de estos.
 
 
 # EJERCICIO 3:
