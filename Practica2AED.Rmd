@@ -256,7 +256,30 @@ La gráfica que considero más adecuada para este ejercicio es la segunda, ya qu
 
 # EJERCICIO 6
 
+```{r}
+# Cargo los datos 
+load("data/iceRiver.RData")
 
+# Obtengo información de las variables
+str(ice.river.df)
+```
+El dataset presenta 1096 observaciones en las que se han analizado 5 variables, todas ellas de vcategoría numérica.
+
+```{r}
+# Creo el gráfico
+rios_gr1 <- ggplot(data = ice.river.df, aes(x = time)) + geom_line(aes(y = flow.vat, colour = "Río Vat"),
+            linewidth = 0.6) + geom_line(aes(y = flow.jok, colour = "Río Jok"),
+            linewidth = 0.6) + scale_colour_manual(name = "Río", values = c("Río Vat" = "red", "Río Jok" =             "blue")) + labs(title = "Caudal diario de dos ríos islandeses", subtitle = "Mediciones durante tres años", x = "Tiempo", y = "Caudal") + theme_minimal()   
+rios_gr1
+
+# Guardar el gráfico en PDF
+ggsave("Ejercicio6.pdf", plot = rios_gr1)
+```
+
+
+A partir del gráfico se deduce que el río Jok es más caudaloso que el río Vat. Además, se observan picos donde el caudal aumentó bastante, , sobretodo a principios del año 1974. 
+
+Vemos además que los caudales de ambos ríos presentan una variación similar, de modo que cuando un caudal aumenta, el otro también, pero no con el mismo grado de crecimiento.
 
 
 # EJERCICIO 7
