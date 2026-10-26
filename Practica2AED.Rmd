@@ -208,22 +208,63 @@ Observamos que el gráfico 1 no es válido para evaluar la evolución de las ven
 Para poder analizarlo bien, es conveniente aplicar geom_line(), de modo que vemos el orden que siguen las ventas, opprdenadas por fecha, y así podemos hacer un estudio adecuado, como vemos en los siguientes gráficos.
 
 
-# EJERCICIO 5:
+# EJERCICIO 5
+
+```{r}
+# Cargo los datos
+load("data/Experimento.Rdata")
+
+# Examino las variables del conjunto de datos
+str(Experimento)
+```
+En este dataset tenemos 6 observaciones con 4 variables. De las variables, 3 son numéricas y una es categórica (factor) de dos niveles, OJ y VC.
+
+```{r}
+# Creo el gráfico con las variables indicadas
+grafico1 <- ggplot(data = Experimento, aes(x = Dosis, y = Altura, colour = Complemento, 
+                                           linetype = Complemento, shape = Complemento, 
+                                           group = Complemento)) + geom_line() + geom_point()
+grafico1
+
+# Añado barras con el error dado al gráfico 1
+grafico2 <- grafico1 + geom_errorbar(aes(ymin = Altura - Error_Altura, ymax = Altura + Error_Altura),
+                                     width = 0.2)
+grafico2
+
+# Creo el gráfico 3 como se pide
+grafico3 <- ggplot(data = Experimento, aes(x = Dosis, y = Altura, colour = Complemento, 
+                                           group = Complemento)) + geom_line(linetype = "dashed") +
+                                           geom_point(shape = 16) + 
+                                           geom_errorbar(aes(ymin = Altura - Error_Altura, 
+                                                             ymax = Altura + Error_Altura),
+                                                        width = 0.2)
+grafico3 <- grafico3 + scale_color_brewer(palette = "Reds")  # Añado los colores 
+grafico3
+
+# Guardo el gráfico en formato PDF
+ggsave("./results/Ejercicio5.pdf", plot = grafico3)
+```
+
+La primera gráfica muestra la relación entre la dosis y la altura, diferenciando cada complemento mediante el color, el tipo de línea y la forma de los puntos. 
+
+La segunda añade las barras de error para representar la variabilidad asociada a la altura en cada dosis.
+
+La tercera contiene la misma información que la segunda, pero utilizando líneas discontinuas, puntos y una paleta de colores rojos. 
+
+La gráfica que considero más adecuada para este ejercicio es la segunda, ya que la última no presenta colores muy adecuados y uno de los dos factores de la variable categórica no se aprecia prácticamente.
+
+
+# EJERCICIO 6
 
 
 
 
-# EJERCICIO 6:
+# EJERCICIO 7
 
 
 
 
-# EJERCICIO 7:
-
-
-
-
-# EJERCICIO 8:
+# EJERCICIO 8
 
 
 
