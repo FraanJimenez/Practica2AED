@@ -51,15 +51,13 @@ language:
     solution: 'Solución. '
 ---
 
-Cargamos los paquetes necesarios: 
+Cargamos los paquetes necesarios:
 
 ```{r}
 library(pacman)
 packages =  c("tidyverse", "knitr", "ggplot2", "datasets", "RColorBrewer",'latex2exp')
 pacman::p_load(char=packages)
 ```
-
-
 
 # EJERCICIO 1
 
@@ -80,14 +78,13 @@ grafico2 <- ggplot(data = ds, mapping = aes(x = MinTemp, y = MaxTemp, colour = R
 grafico2 + geom_point()
 
 # Añado un título y guardo el resultado en grafico3
-grafico3 <- grafico2 + geom_point() + ggtitle("Temperatura mínima frente a temperatura máxima")
+grafico3 <- grafico2 + geom_point() + 
+  ggtitle("Temperatura mínima frente a temperatura máxima")
 grafico3
 
 # Guardo el gráfico en formato PDF
 ggsave("./results/Ejercicio1.pdf", plot = grafico3)
 ```
-
-
 
 # EJERCICIO 2
 
@@ -98,11 +95,13 @@ grafico1 + geom_point()
 
 
 # Añado la variable RainToday mediante la forma del punto
-grafico2 <- ggplot(data = ds, aes(x = Temp9am, y = Pressure9am, shape = RainToday)) + geom_point()
+grafico2 <- ggplot(data = ds, aes(x = Temp9am, y = Pressure9am, shape = RainToday)) + 
+geom_point()
 grafico2
 
 # Añado la variable RainToday mediante el color de los puntos
-grafico3 <- ggplot(data = ds, aes(x = Temp9am, y = Pressure9am, color = RainToday)) + geom_point()
+grafico3 <- ggplot(data = ds, aes(x = Temp9am, y = Pressure9am, color = RainToday)) + 
+geom_point()
 grafico3
 
 
@@ -120,7 +119,6 @@ ggsave("./results/Ejercicio2.pdf", plot = grafico4)
 ```
 
 Al estar los valores (puntos y triángulos) tan juntos en el gráfico, se diferencia mejor si representamos RainToday mediante el color, ayudando así a la diferenciación de estos.
-
 
 # EJERCICIO 3
 
@@ -167,7 +165,6 @@ Comparando los gráficos iris_grafico3 con iris_grafico4, vemos que se aprecia m
 
 Por otro lado, al usar geom_jitter() se observa la introducción de ruido a los valores, de modo que se puede apreciar mejor la cantidad de observaciones que toman cada valor, para hacernos una idea visual.
 
-
 # EJERCICIO 4
 
 Veamos primero las variables del dataset:
@@ -192,7 +189,8 @@ grafico2 <- grafico1 + geom_line()
 grafico2
 
 # Cambiamos el tipo de línea según el fabricante
-grafico3 <- ggplot(data = DatosEjer4, aes(x = Fecha, y = Ventas, color = Fabricante, linetype = Fabricante)) + geom_point() + geom_line()
+grafico3 <- ggplot(data = DatosEjer4, aes(x = Fecha, y = Ventas, 
+                                          color = Fabricante, linetype = Fabricante)) + geom_point() + geom_line()
 grafico3
 
 # Añado título
@@ -203,10 +201,9 @@ grafico4
 ggsave("./results/Ejercicio4.pdf", plot = grafico4)
 ```
 
-Observamos que el gráfico 1 no es válido para evaluar la evolución de las ventas de cada fabricante de manera adecuada, ya que tenemos una serie de puntos pero no vemos su evoolución según el tiempo de manera clara. 
+Observamos que el gráfico 1 no es válido para evaluar la evolución de las ventas de cada fabricante de manera adecuada, ya que tenemos una serie de puntos pero no vemos su evoolución según el tiempo de manera clara.
 
 Para poder analizarlo bien, es conveniente aplicar geom_line(), de modo que vemos el orden que siguen las ventas, opprdenadas por fecha, y así podemos hacer un estudio adecuado, como vemos en los siguientes gráficos.
-
 
 # EJERCICIO 5
 
@@ -217,6 +214,7 @@ load("data/Experimento.Rdata")
 # Examino las variables del conjunto de datos
 str(Experimento)
 ```
+
 En este dataset tenemos 6 observaciones con 4 variables. De las variables, 3 son numéricas y una es categórica (factor) de dos niveles, OJ y VC.
 
 ```{r}
@@ -245,14 +243,13 @@ grafico3
 ggsave("./results/Ejercicio5.pdf", plot = grafico3)
 ```
 
-La primera gráfica muestra la relación entre la dosis y la altura, diferenciando cada complemento mediante el color, el tipo de línea y la forma de los puntos. 
+La primera gráfica muestra la relación entre la dosis y la altura, diferenciando cada complemento mediante el color, el tipo de línea y la forma de los puntos.
 
 La segunda añade las barras de error para representar la variabilidad asociada a la altura en cada dosis.
 
-La tercera contiene la misma información que la segunda, pero utilizando líneas discontinuas, puntos y una paleta de colores rojos. 
+La tercera contiene la misma información que la segunda, pero utilizando líneas discontinuas, puntos y una paleta de colores rojos.
 
 La gráfica que considero más adecuada para este ejercicio es la segunda, ya que la última no presenta colores muy adecuados y uno de los dos factores de la variable categórica no se aprecia prácticamente.
-
 
 # EJERCICIO 6
 
@@ -263,24 +260,27 @@ load("data/iceRiver.RData")
 # Obtengo información de las variables
 str(ice.river.df)
 ```
+
 El dataset presenta 1096 observaciones en las que se han analizado 5 variables, todas ellas de vcategoría numérica.
 
 ```{r}
 # Creo el gráfico
 rios_gr1 <- ggplot(data = ice.river.df, aes(x = time)) + geom_line(aes(y = flow.vat, colour = "Río Vat"),
             linewidth = 0.6) + geom_line(aes(y = flow.jok, colour = "Río Jok"),
-            linewidth = 0.6) + scale_colour_manual(name = "Río", values = c("Río Vat" = "red", "Río Jok" =             "blue")) + labs(title = "Caudal diario de dos ríos islandeses", subtitle = "Mediciones durante tres años", x = "Tiempo", y = "Caudal") + theme_minimal()   
+            linewidth = 0.6) + 
+  scale_colour_manual(name = "Río", values = c("Río Vat" = "red", "Río Jok" = "blue")) + 
+  labs(title = "Caudal diario de dos ríos islandeses", 
+       subtitle = "Mediciones durante tres años", x = "Tiempo", y = "Caudal") + 
+  theme_minimal()   
 rios_gr1
 
 # Guardo el gráfico en PDF
 ggsave("./results/Ejercicio6.pdf", plot = rios_gr1)
 ```
 
-
-A partir del gráfico se deduce que el río Jok es más caudaloso que el río Vat. Además, se observan picos donde el caudal aumentó bastante, , sobretodo a principios del año 1974. 
+A partir del gráfico se deduce que el río Jok es más caudaloso que el río Vat. Además, se observan picos donde el caudal aumentó bastante, , sobretodo a principios del año 1974.
 
 Vemos además que los caudales de ambos ríos presentan una variación similar, de modo que cuando un caudal aumenta, el otro también, pero no con el mismo grado de crecimiento.
-
 
 # EJERCICIO 7
 
@@ -294,22 +294,22 @@ grafico1
 
 # Creamos los gráficos de violín de la MaxTemp por año (Year)
 grafico2 <- ggplot(data = ds, aes(x = factor(Year), y = MaxTemp, fill = factor(Year))) + geom_violin() +
-                  labs(title = "Distribución de temperaturas máximas por año", x = "Año", y = "Temperatura (ºC)")
+labs(title = "Distribución de temperaturas máximas por año", 
+     x = "Año", y = "Temperatura (ºC)")
 grafico2
 
 # Modificación del gráfico anterior
-grafico3 <- grafico2 + theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1))
+grafico3 <- grafico2 + theme(legend.position = "none", 
+                             axis.text.x = element_text(angle = 45, hjust = 1))
 grafico3
 
 # Guardo el gráfico en PDF
 ggsave("./results/Ejercicio7.pdf", plot = grafico3)
 ```
 
-De esta forma, vemos los dos tipos de gráficos pedidos: boxplot y violín. 
+De esta forma, vemos los dos tipos de gráficos pedidos: boxplot y violín.
 
 En el boxplot podemos ver dónde se sitúa la mediana, máximos, mínimos, etc, mientras que en el gráfico de tipo violín lo que vemos es un conjunto cuyo grosor es mayor o menor según la cantidad de observaciones que aparecen en cada valor.
-
-
 
 # EJERCICIO 8
 
@@ -329,28 +329,41 @@ grafico1 <- ggplot(data = datos, aes(x = HEIGHT)) + geom_histogram()
 grafico1
 
 # Añado título y etiquetas
-grafico2 <- grafico1 + labs(title = "Histograma de la variable Altura", x = "Altura (cm)", y = "Frecuencia")
+grafico2 <- grafico1 + labs(title = "Histograma de la variable Altura", 
+                            x = "Altura (cm)", y = "Frecuencia")
 grafico2
 
 # Ajusto eje y 20 bins
-grafico3 <- ggplot(datos, aes(x = HEIGHT)) + geom_histogram(breaks = seq(155, 195, length.out=21)) + xlim(155, 195) + labs(title = "Histograma de la variable Altura", x = "Altura (cm)", y = "Frecuencia")
+grafico3 <- ggplot(datos, aes(x = HEIGHT)) + 
+  geom_histogram(breaks = seq(155, 195, length.out=21)) + 
+  xlim(155, 195) + 
+  labs(title = "Histograma de la variable Altura", 
+       x = "Altura (cm)", y = "Frecuencia")
 grafico3
 
 # Cambio de colores 
-grafico4 <- ggplot(datos, aes(x = HEIGHT)) + geom_histogram(fill = "blue", alpha = 0.5, color = "red") + labs(title = "Histograma de la variable Altura", x = "Altura (cm)", y = "Frecuencia")
+grafico4 <- ggplot(datos, aes(x = HEIGHT)) + 
+  geom_histogram(fill = "blue", alpha = 0.5, color = "red") + 
+  labs(title = "Histograma de la variable Altura", 
+       x = "Altura (cm)", y = "Frecuencia")
 grafico4
 
 # Añado densidad
-grafico5 <- ggplot(datos, aes(x = HEIGHT, y =after_stat(density))) + geom_histogram(fill = "blue", alpha = 0.5,    color = "red") + geom_density(color="green", linewidth=1) + 
-  labs(title = "Histograma de la variable Altura", x = "Altura (cm)", y = "Frecuencia")
+grafico5 <- ggplot(datos, aes(x = HEIGHT, y =after_stat(density))) + 
+  geom_histogram(fill = "blue", alpha = 0.5, color = "red") + 
+  geom_density(color="green", linewidth=1) + 
+  labs(title = "Histograma de la variable Altura", 
+       x = "Altura (cm)", y = "Frecuencia")
 grafico5
 
 # Ahora con MORT
-grafico6 <- ggplot(datos, aes(x = HEIGHT, y = after_stat(density))) + geom_histogram(fill = "blue", alpha = 0.5, color = "red") + geom_density(color = "green", linewidth = 1) +
-labs(title = "Histograma de la variable Altura", x = "Altura (cm)", y = "Frecuencia") + facet_grid(. ~ MORT)
+grafico6 <- ggplot(datos, aes(x = HEIGHT, y = after_stat(density))) + 
+  geom_histogram(fill = "blue", alpha = 0.5, color = "red") + 
+  geom_density(color = "green", linewidth = 1) +
+labs(title = "Histograma de la variable Altura", 
+     x = "Altura (cm)", y = "Frecuencia") + facet_grid(. ~ MORT)
 grafico6
 
 # Guardo el gráfico en PDF
 ggsave("./results/Ejercicio8.pdf", plot = grafico6)  
 ```
-
