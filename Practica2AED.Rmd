@@ -311,8 +311,46 @@ En el boxplot podemos ver dónde se sitúa la mediana, máximos, mínimos, etc, 
 
 
 
-
 # EJERCICIO 8
 
+```{r}
+# Fdescargamos los datos pedidos
+datos <- read.table("http://assets.datacamp.com/blog_assets/chol.txt", header = TRUE)
 
+# Veamos la estructura del dataset 
+str(datos)
+```
+
+Tenemos un dataset de 200 observaciones con el estudio de 7 variables, de las cuales 4 son de tipo enteras y tres son caracteres (chr).
+
+```{r}
+# Histograma de la variable HEIGHT
+grafico1 <- ggplot(data = datos, aes(x = HEIGHT)) + geom_histogram()
+grafico1
+
+# Añado título y etiquetas
+grafico2 <- grafico1 + labs(title = "Histograma de la variable Altura", x = "Altura (cm)", y = "Frecuencia")
+grafico2
+
+# Ajusto eje y 20 bins
+grafico3 <- ggplot(datos, aes(x = HEIGHT)) + geom_histogram(breaks = seq(155, 195, length.out=21)) + xlim(155, 195) + labs(title = "Histograma de la variable Altura", x = "Altura (cm)", y = "Frecuencia")
+grafico3
+
+# Cambio de colores 
+grafico4 <- ggplot(datos, aes(x = HEIGHT)) + geom_histogram(fill = "blue", alpha = 0.5, color = "red") + labs(title = "Histograma de la variable Altura", x = "Altura (cm)", y = "Frecuencia")
+grafico4
+
+# Añado densidad
+grafico5 <- ggplot(datos, aes(x = HEIGHT, y =after_stat(density))) + geom_histogram(fill = "blue", alpha = 0.5,    color = "red") + geom_density(color="green", linewidth=1) + 
+  labs(title = "Histograma de la variable Altura", x = "Altura (cm)", y = "Frecuencia")
+grafico5
+
+# Ahora con MORT
+grafico6 <- ggplot(datos, aes(x = HEIGHT, y = after_stat(density))) + geom_histogram(fill = "blue", alpha = 0.5, color = "red") + geom_density(color = "green", linewidth = 1) +
+labs(title = "Histograma de la variable Altura", x = "Altura (cm)", y = "Frecuencia") + facet_grid(. ~ MORT)
+grafico6
+
+# Guardo el gráfico en PDF
+ggsave("./results/Ejercicio8.pdf", plot = grafico6)  
+```
 
