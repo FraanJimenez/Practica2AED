@@ -51,3 +51,75 @@ language:
     solution: 'Solución. '
 ---
 
+Cargamos los paquetes necesarios: 
+
+```{r}
+library(pacman)
+packages =  c("tidyverse", "knitr", "ggplot2", "datasets", "RColorBrewer",'latex2exp')
+pacman::p_load(char=packages)
+```
+
+
+
+# EJERCICIO 1: 
+
+```{r}
+# Cargo el fichero de los datos correspondiente
+load("data/weatherAUS.RData")
+
+# Creo el gráfico 1
+grafico1 <- ggplot(data = ds, mapping = aes(x = MinTemp, y = MaxTemp))
+
+# Añado la capa geométrica pedida
+grafico1 + geom_point()
+
+# Creo el grafico2 
+grafico2 <- ggplot(data = ds, mapping = aes(x = MinTemp, y = MaxTemp, colour = RainTomorrow))
+
+# Gráfico de dispersión
+grafico2 + geom_point()
+
+# Añado un título y guardo el resultado en grafico3
+grafico3 <- grafico2 + geom_point() + ggtitle("Temperatura mínima frente a temperatura máxima")
+grafico3
+
+# Guardo el gráfico en formato PDF
+ggsave("./results/Ejercicio1.pdf", plot = grafico3)
+```
+
+
+
+# EJERCICIO 2:
+
+
+
+
+# EJERCICIO 3:
+
+
+
+
+# EJERCICIO 4:
+
+
+
+
+# EJERCICIO 5:
+
+
+
+
+# EJERCICIO 6:
+
+
+
+
+# EJERCICIO 7:
+
+
+
+
+# EJERCICIO 8:
+
+
+
